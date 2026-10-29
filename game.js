@@ -17,7 +17,7 @@
   const dom = {
     canvas: $('game-canvas'), hud: $('hud'), menu: $('menu'), pause: $('pause'), gameover: $('gameover'),
     menuBest: $('menuBest'), menuBest2: $('menuBest2'), startBtn: $('startBtn'),
-    speedValue: $('speedValue'), speedArc: $('speedArc'), gearValue: $('gearValue'), rpmBars: $('rpmBars'),
+    speedCluster: $('speedCluster'), speedValue: $('speedValue'), speedArc: $('speedArc'), gearValue: $('gearValue'), rpmBars: $('rpmBars'),
     stabilityFill: $('stabilityFill'), stabilityLabel: $('stabilityLabel'), gripFill: $('gripFill'), gripLine: $('gripLine'),
     destinationValue: $('destinationValue'), destinationBar: $('destinationBar'), odoValue: $('odoValue'), bestValue: $('bestValue'),
     quip: $('quip'), quipAvatar: $('quipAvatar'), quipName: $('quipName'), quipText: $('quipText'),
@@ -2453,14 +2453,15 @@
     const speed = Math.round(game.speed);
     setText(dom.speedValue, speed);
     setText(dom.gearValue, game.gear);
-    const arc = clamp(game.speed / 122, 0, 1) * 330;
+    const arc = clamp(game.speed / 122, 0, 1) * 316;
     dom.speedArc.setAttribute('stroke-dasharray', `${arc} 440`);
+    dom.speedCluster.classList.toggle('fast', game.speed > 56);
     const lit = Math.round(game.rpm * 8);
     rpmChildren.forEach((el, i) => {
       el.classList.toggle('on', i < lit);
       el.classList.toggle('redline', i >= 6 && game.rpm > 0.72);
     });
-    dom.stabilityFill.style.width = `${game.stability}%`;
+    dom.stabilityFill.style.clipPath = `inset(0 ${100 - game.stability}% 0 0)`;
     let label = 'SAHI CHAL RAHI HAI';
     if (game.stability < 22) label = 'PALATNE WALI HAI';
     else if (game.stability < 42) label = 'BHAI, DHYAN SE';
