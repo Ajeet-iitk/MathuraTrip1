@@ -53,6 +53,7 @@
     saurabh:  { name: 'Saurabh',  cls: 'av-saurabh',  initial: 'S' },
     shubham:  { name: 'Shubham',  cls: 'av-shubham',  initial: 'S' },
     abhishek: { name: 'Abhishek', cls: 'av-abhishek', initial: 'A' },
+    naagu:    { name: 'Naagu',    cls: 'av-naagu',    initial: 'N' },
     sahil:    { name: 'Sahil',    cls: 'av-sahil',    initial: 'S' }
   };
 
@@ -311,6 +312,7 @@
     shirtOrange: new THREE.MeshStandardMaterial({ color: 0xbc5a2f, roughness: 0.9 }),
     shirtGreen: new THREE.MeshStandardMaterial({ color: 0x4e7f53, roughness: 0.9 }),
     shirtPurple: new THREE.MeshStandardMaterial({ color: 0x615388, roughness: 0.9 }),
+    shirtWhite: new THREE.MeshStandardMaterial({ color: 0xe8e2d4, roughness: 0.9 }),
     sleeve: new THREE.MeshStandardMaterial({ color: 0x294a5e, roughness: 0.9 }),
     emissiveRed: new THREE.MeshStandardMaterial({ color: 0x3a0806, emissive: 0xff2b1b, emissiveIntensity: 1.8, roughness: 0.5 }),
     emissiveWarm: new THREE.MeshStandardMaterial({ color: 0x4b2c0b, emissive: 0xffc16a, emissiveIntensity: 1.15, roughness: 0.5 }),
@@ -1155,7 +1157,7 @@
   carBody.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
 
   /* ------------------------------------------------------------
-     Seats and the four friends
+     Seats and the five friends
   ------------------------------------------------------------ */
   function makeSeat(x, z, rear = false) {
     addBox(carBody, 0.55, 0.16, 0.56, MAT.beige, x, 0.56, z);
@@ -1244,8 +1246,10 @@
 
   makePassenger({ x: -0.47, z: 0.89, shirt: MAT.shirtOrange, skin: MAT.skin1, mustache: true, phase: 0.4 });
   makePassenger({ x: 0.47, z: 0.89, shirt: MAT.shirtBlue, skin: MAT.skin2, phase: 2.1 });
-  makePassenger({ x: -0.43, z: 1.91, shirt: MAT.shirtGreen, skin: MAT.skin1, sleeping: true, tilt: 0.3, phase: 4.2 });
-  makePassenger({ x: 0.43, z: 1.91, shirt: MAT.shirtPurple, skin: MAT.skin2, sleeping: true, tilt: -0.28, phase: 5.7 });
+  makePassenger({ x: -0.52, z: 1.91, shirt: MAT.shirtGreen, skin: MAT.skin1, sleeping: true, tilt: 0.3, phase: 4.2 });
+  makePassenger({ x: 0.52, z: 1.91, shirt: MAT.shirtPurple, skin: MAT.skin2, sleeping: true, tilt: -0.28, phase: 5.7 });
+  // Naagu: last-row middle seat, wide awake, sitting up straight like a guest
+  makePassenger({ x: 0, z: 1.93, shirt: MAT.shirtWhite, skin: MAT.skin2, phase: 3.3 });
 
   // tiny sleeping Zs
   const zTex = makeCanvasTexture(256, 128, (ctx, w, h) => {
@@ -1629,6 +1633,7 @@
     { who: ['ajeet'], text: 'Abhi to meri shadi bhi nhi hui!', translation: 'I haven\'t even gotten married yet!' },
     { who: ['shubham', 'abhishek'], text: 'Kya hua tha bhai, hum to so rhe the.', translation: 'What happened, bro? We were sleeping.' },
     { who: ['saurabh'], text: 'Maine bola tha Sahil... dheere chala.', translation: 'I told you, Sahil... drive slowly.' },
+    { who: ['naagu'], text: 'Sahil bhaiya, aap theek ho na? Gaadi ki tension mat lo.', translation: 'Sahil bhaiya, are you okay? Don\'t worry about the car.' },
     { who: ['ajeet'], text: 'Ab auto se Mathura jaana padega.', translation: 'Now we\'ll have to take an auto to Mathura.' },
     { who: ['sahil'], text: 'Sorry yaar... ek second ke liye dhyaan hat gaya.', translation: 'Sorry, guys... I looked away for one second.' }
   ];
@@ -1791,7 +1796,11 @@
             game.lastHitToast = game.time;
             toast('CLEAN PASS', 'Dil dhadka, par gaadi seedhi rahi. +respect', 1700);
             audio.whoosh();
-            if (Math.random() > 0.45) showQuip('saurabh', pick([
+            if (Math.random() > 0.7) showQuip('naagu', pick([
+              'Bahut badhiya, Sahil bhaiya. Bas thoda sa aur dheere, please.',
+              'Shukriya bhaiya, bacha liya aapne.'
+            ]));
+            else if (Math.random() > 0.35) showQuip('saurabh', pick([
               'Oye! Bach gaya. My heart stopped.',
               'Sahil, mirror mein dekh. Nahi, mat dekh.',
               'Nice pass. Ab agla truck bhi hai.'
@@ -2081,6 +2090,15 @@
       return;
     }
     // harmless passenger chaos
+    if (Math.random() < 0.3) {
+      showQuip('naagu', pick([
+        'Sahil bhaiya, agar aapko bura na lage, toh AC thoda kam kar dein?',
+        'Koi jaldi nahi hai bhaiya. Aaram se chaliye.',
+        'Main paani ki bottle pass karun? Bas puch raha tha.',
+        'Sorry, ek baat bolun? Speed breaker aa raha hai shayad.'
+      ]));
+      return;
+    }
     showQuip(pick(['ajeet', 'saurabh', 'shubham']), pick([
       'Mathura kitna door hai?',
       'Sahil, dhaba aaye toh chai rukna.',
@@ -2095,6 +2113,14 @@
     if (game.time - game.lastQuip < 7) return;
     if (game.stability < 26) {
       game.lastQuip = game.time;
+      if (Math.random() < 0.25) {
+        showQuip('naagu', pick([
+          'Maaf kijiye bhaiya, par... gaadi thodi tedhi lag rahi hai?',
+          'Sahil bhaiya, please, agar possible ho toh brake?',
+          'Bura mat maanna, par main seatbelt laga leta hoon.'
+        ]));
+        return;
+      }
       showQuip(pick(['ajeet', 'saurabh', 'shubham']), pick([
         'Bhai, dheere chala! Brake... BRAKE!',
         'Sahil, yeh hilti kyun hai? Tu theek hai?',
@@ -2106,6 +2132,15 @@
     }
     if (game.time - game.lastQuip > 18 && Math.random() < 0.016) {
       game.lastQuip = game.time;
+      if (Math.random() < 0.25) {
+        showQuip('naagu', pick([
+          'Sahil bhaiya, aap bahut achha chala rahe ho. Sach mein.',
+          'Shubham bhaiya so rahe hain, main dheere bolta hoon.',
+          'Thank you bhaiya, Mathura le jaane ke liye.',
+          'Kisi ko biscuit chahiye? Parle-G hai.'
+        ]));
+        return;
+      }
       showQuip(pick(['ajeet', 'saurabh', 'shubham', 'abhishek']), pick([
         'Mathura 84 km. Sahil, bas dheere chala.',
         'Bhai, AC theek hai?',

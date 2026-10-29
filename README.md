@@ -1,8 +1,8 @@
 # Bhai, Dheere Chala!
 
-**Five friends. One shaky 7-seater Innova. 84 km to Mathura.**
+**Six friends. One shaky 7-seater Innova. 84 km to Mathura.**
 
-You are Sahil, and this is your first proper highway drive. Ajeet and Saurabh are in the middle row giving unsolicited advice, while Shubham and Abhishek are asleep in the last row. The brakes are loose, the clutch has opinions, and the Innova has the structural confidence of a tall cardboard box.
+You are Sahil, and this is your first proper highway drive. Ajeet and Saurabh are in the middle row giving unsolicited advice, while Shubham and Abhishek are asleep in the last row. Naagu sits between them, wide awake and far too polite to say anything except "bhaiya, if possible, thoda dheere?" The brakes are loose, the clutch has opinions, and the Innova has the structural confidence of a tall cardboard box.
 
 Keep the shiny side up for as long as you can.
 
@@ -14,11 +14,11 @@ No install, no build step, no login.
 
 ## The trip
 
-- **A proper first-person cabin** — steering wheel, dashboard idol, rear-view mirror, and all four friends visible when you look back.
+- **A proper first-person cabin** — steering wheel, dashboard idol, rear-view mirror, and all five friends visible when you look back.
 - **An intentionally nervous Innova** — loose brakes, a laggy clutch, body roll, crosswinds, and a stability meter that gives up if you drive it like a hero.
 - **A road full of bad news** — traffic, oncoming lorries, potholes, speed breakers, barricades, oil drums, cement blocks, and the occasional fallen sabzi thela.
 - **Hard steering tips you over** — hold a sharp turn above ~56 km/h and the warning appears. Ignore it for about two seconds and you are horizontal.
-- **A full topple sequence** — chase camera, dust, crash dialogue, and five friends who suddenly remember they were awake the whole time.
+- **A full topple sequence** — chase camera, dust, crash dialogue, and six friends who suddenly remember they were awake the whole time.
 - **Touch controls** for phones and tablets.
 - **Personal best** saved in your browser.
 
